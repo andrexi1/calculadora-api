@@ -25,6 +25,7 @@ public class PersonaController {
         response.put("desarrollador", "Gustavo Andres Barrera Arcos");
         response.put("contenedor", System.getenv().getOrDefault("HOSTNAME", "desconocido"));
         response.put("maquina", "10.172.14.70");
+        response.put("version", "v2");
         response.put("timestamp", System.currentTimeMillis());
         return response;
     }
