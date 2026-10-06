@@ -20,6 +20,7 @@ public class PersonaController {
     private PersonaService personaService;
 
     private Map<String, Object> addMetadata(Object data) {
+	   // AUTO-DEPLOY TEST - Cambio en vivo
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", data);
         response.put("desarrollador", "Gustavo Andres Barrera Arcos");
