@@ -1,4 +1,4 @@
-name: Maven Build
+name: Build JAR
 
 on:
   push:
@@ -16,10 +16,9 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: maven
     
-    - name: Build with Maven
+    - name: Build JAR
       run: mvn clean package -DskipTests
     
-    - name: Build Complete
-      run: echo "✅ BUILD SUCCESSFUL"
+    - name: Done
+      run: echo "Build completed"
