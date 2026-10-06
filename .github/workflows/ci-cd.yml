@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Build JAR
 
 on:
   push:
@@ -17,8 +17,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     
-    - name: Build JAR
+    - name: Build with Maven
       run: mvn clean package -DskipTests
     
-    - name: Build complete
-      run: echo "✅ Build completed successfully!"
+    - name: Success!
+      run: echo "✅ Build completed"
