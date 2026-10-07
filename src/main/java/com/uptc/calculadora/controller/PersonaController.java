@@ -31,17 +31,18 @@ public class PersonaController {
         return response;
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<?> count() throws ArchivoNoDisponibleException {
-        try {
-            long total = personaService.contar();
-            Map<String, Object> countData = new HashMap<>();
-            countData.put("total", total);
-            return ResponseEntity.ok(addMetadata(countData));
-        } catch (Exception e) {
-            throw new ArchivoNoDisponibleException("Archivo de personas no disponible");
-        }
+@GetMapping("/count")
+public ResponseEntity<?> count() throws ArchivoNoDisponibleException {
+    try {
+        long total = personaService.contar();
+        Map<String, Object> countData = new HashMap<>();
+        countData.put("total", total);
+        return ResponseEntity.ok(addMetadata(countData));
+    } catch (Exception e) {
+        e.printStackTrace();
+        throw new ArchivoNoDisponibleException("Error al consultar personas: " + e.getMessage());
     }
+}
 
     @GetMapping("/paginado")
     public ResponseEntity<?> listarPaginado(
