@@ -23,7 +23,7 @@ public class PersonaController {
 	   // AUTO-DEPLOY TEST - Cambio en vivo
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", data);
-        response.put("desarrollador", "Gustavo Andres Barrera Arcos");
+        response.put("desarrollador", "Gustavo Andres Barrera Arcos 1999");
         response.put("contenedor", System.getenv().getOrDefault("HOSTNAME", "desconocido"));
         response.put("maquina", "10.172.14.70");
         response.put("version", "v2");
