@@ -20,10 +20,10 @@ public class PersonaController {
     private PersonaService personaService;
 
     private Map<String, Object> addMetadata(Object data) {
-	   // AUTO-DEPLOY TEST - Cambio en vivo
+        // AUTO-DEPLOY TEST - Cambio en vivo
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", data);
-        response.put("desarrollador", "Gustavo Andres Barrera Arcos 19");
+        response.put("desarrollador", "Gustavo Andres 11111111");
         response.put("contenedor", System.getenv().getOrDefault("HOSTNAME", "desconocido"));
         response.put("maquina", "10.172.14.70");
         response.put("version", "v2");
@@ -31,18 +31,18 @@ public class PersonaController {
         return response;
     }
 
-@GetMapping("/count")
-public ResponseEntity<?> count() throws ArchivoNoDisponibleException {
-    try {
-        long total = personaService.contar();
-        Map<String, Object> countData = new HashMap<>();
-        countData.put("total", total);
-        return ResponseEntity.ok(addMetadata(countData));
-    } catch (Exception e) {
-        e.printStackTrace();
-        throw new ArchivoNoDisponibleException("Error al consultar personas: " + e.getMessage());
+    @GetMapping("/count")
+    public ResponseEntity<?> count() throws ArchivoNoDisponibleException {
+        try {
+            long total = personaService.contar();
+            Map<String, Object> countData = new HashMap<>();
+            countData.put("total", total);
+            return ResponseEntity.ok(addMetadata(countData));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ArchivoNoDisponibleException("Error al consultar personas: " + e.getMessage());
+        }
     }
-}
 
     @GetMapping("/paginado")
     public ResponseEntity<?> listarPaginado(
@@ -77,7 +77,7 @@ public ResponseEntity<?> count() throws ArchivoNoDisponibleException {
             Map<String, String> response = new HashMap<>();
             response.put("status", "success");
             response.put("message", "Registro en línea " + datos.getNumeroLinea() + " actualizado exitosamente");
-            
+
             return ResponseEntity.ok(addMetadata(response));
         } catch (IllegalArgumentException e) {
             Map<String, String> response = new HashMap<>();
