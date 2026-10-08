@@ -1,222 +1,150 @@
-version: '3.8'
-
 services:
-  # ===== POSTGRESQL =====
-  db:
-    image: postgres:15-alpine
-    container_name: postgres-personas
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: personas
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - calculadora-net
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # ===== NFS SERVER =====
-  nfs-server:
-    image: evilmartians/nfs-server:latest
-    container_name: nfs-server
-    ports:
-      - "2049:2049"
-      - "111:111"
-      - "111:111/udp"
-    volumes:
-      - nfs-data:/srv/nfs/personas
-    environment:
-      - NFS_EXPORT_0_PATH=/srv/nfs/personas
-      - NFS_EXPORT_0_ALLOWED=*
-    networks:
-      - calculadora-net
-    cap_add:
-      - SYS_ADMIN
-    security_opt:
-      - apparmor=unconfined
-
-  # ===== SPRING BOOT CONTAINERS =====
   calc1:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc1
     hostname: maquina2-calc1
     ports:
       - "8081:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc2:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc2
     hostname: maquina2-calc2
     ports:
       - "8082:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc3:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc3
     hostname: maquina2-calc3
     ports:
       - "8083:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc4:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc4
     hostname: maquina2-calc4
     ports:
       - "8084:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc5:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc5
     hostname: maquina2-calc5
     ports:
       - "8085:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc6:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc6
     hostname: maquina2-calc6
     ports:
       - "8086:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc7:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc7
     hostname: maquina2-calc7
     ports:
       - "8087:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc8:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc8
     hostname: maquina2-calc8
     ports:
       - "8088:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc9:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc9
     hostname: maquina2-calc9
     ports:
       - "8089:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
 
   calc10:
-    image: ghcr.io/andrexi1/calculadora-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: calc10
     hostname: maquina2-calc10
     ports:
       - "8090:8080"
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/personas
+      SPRING_DATASOURCE_URL: jdbc:postgresql://10.172.14.181:5432/personas
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - calculadora-net
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "5"
     restart: unless-stopped
-
-volumes:
-  postgres-data:
-  nfs-data:
-
-networks:
-  calculadora-net:
-    driver: bridge
